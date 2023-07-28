@@ -13,30 +13,106 @@
 <table class="table table-bordered table-responsive" id="miTabla">
     <thead>
         <tr>
-            <td>Codigo</td>
-            <td></td>
-            <td>nombre</td>
-            <td>precio</td>
+            <td style="display :none;">id</td>
+            <td>cdigo</td>
+            <td>Nombre</td>
+            <td>Precio</td>
             <td>Fabricante</td>
         </tr>
     </thead>
     <tbody>
-        @foreach (Modelo.Producto Producto in Model.productos)
+        @foreach (Modelo.Producto Producto in Model.Productos)
         {
             <tr>
-                <td>@Producto.codigo</td>
-                <td>@Producto.nombre</td>
-                <td>@Producto.precio</td>
-                <td>@Producto.fabricante.nombre</td>
+                <td>@Producto.Codigo</td>
+                <td>@Producto.Nombre</td>
+                <td>@Producto.Precio</td>
+                <td>@Producto.Fabricante.nombre</td>
+
 
             </tr>
         }
     <tr>
-        <td class="text-center">Total: </td>
-        <td id="text" class="text-center">0</td>
-        <input id="nums1" type="text" name="sum_num1" onchange="calularSuma()">
+        <td class="text-center">Total de productos:  </td>
+        <td id="text" class="text-center">@Model.Total</td>
+       
     </tr>
 
     </tbody>
 </table>
+
+@*<script type="text/javascript">
+    function CalcularTotal(codigo) {
+        if ($('#checkbox_' + codigo).is(':checked')) {
+            var total = parseInt($('#total').text())
+            total = total + codigo;
+            $('#total').text(total)
+        }
+        else {
+            var total = parseInt($('#total').text())
+            total = total - codigo;
+            $('#total').text(total)
+        }
+    }
+</script>*@
+
+@*<script type="text/javascript">
+
+        function CalcularTotal(codigo) {
+            if ($('#codigo' + codigo).is(':checkbox')) {
+                var total = parseInt($('#total').codigo())
+                total = codigo + codigo;
+                $('#total').text(total)
+            }
+            else {
+                var total = parseInt($('#total').text())
+                total = total - codigo;
+                $('#total').text(total)
+            }
+
+        }
+    </script>*@
+
+
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        function CalcularTotal(IdMateria) {
+            if ($('#mostar__' + IdMateria).is(':mostar_')) {
+                var total = parseInt($('#total').text())
+                total = total + IdMateria;
+                $('#total').text(total)
+            }
+            else {
+                var total = parseInt($('#total').text())
+                total = total - IdMateria;
+                $('#total').text(total)
+            }
+
+        }
+    </script>
+    <script type="text/javascript">
+        function sumar() {
+
+            var total = 0;
+
+            $(".monto").each(function () {
+
+                if (isNaN(parseFloat($(this).val()))) {
+
+                    total += 0;
+
+                } else {
+
+                    total += parseFloat($(this).val());
+
+                }
+
+            });
+
+            //alert(total);
+            document.getElementById('spTotal').innerHTML = total;
+
+        }
+    </script>*@
 

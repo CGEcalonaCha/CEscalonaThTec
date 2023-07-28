@@ -13,34 +13,34 @@ namespace Presentacion.Controllers
         {
 
             Modelo.Result result = Negocio.Producto.ListaProducto();
-            Modelo.Producto Producto = new Modelo.Producto();
+            Modelo.Producto producto = new Modelo.Producto();
 
+            producto.Total = result.Objetos.Count;
+            producto.Productos = result.Objetos;
 
-            Producto.productos = result.Objetos;
-
-            return View(Producto);
+            return View(producto);
         }
         [HttpGet]
         public ActionResult Agregar(int? idProductos)
         {
-            Modelo.Producto cine = new Modelo.Producto();
-            Modelo.Result result = new Modelo.Result();
-            cine.fabricante = new Modelo.Fabricante();
-            cine.fabricante.fabricantes = new List<object>();
-            result = Negocio.Fabricante.Listafabricante();
+            Modelo.Producto producto = new Modelo.Producto();
+            producto.Fabricante = new Modelo.Fabricante();
+            producto.Fabricante.fabricantes = new List<object>();
+            Modelo.Result result = Negocio.Fabricante.Listafabricante();
+            
             if (result.Correcto)
             {
 
-                cine.fabricante.fabricantes = result.Objetos;
+                producto.Fabricante.fabricantes = result.Objetos;
             }
             if (idProductos == null)
             {
 
-                return View(cine);
+                return View(producto);
             }
             else
             {
-              
+
             }
             return View("Modal");
         }
@@ -49,7 +49,7 @@ namespace Presentacion.Controllers
         public ActionResult Agregar(Modelo.Producto producto)
         {
             Modelo.Result result = new Modelo.Result();
-            if (producto.codigo == 0)
+            if (producto.Codigo == 0)
             {
                 result = Negocio.Producto.AgregarProducto(producto);
                 if (result.Correcto)
@@ -63,10 +63,10 @@ namespace Presentacion.Controllers
             }
             else
             {
-               
+
             }
             return View("Modal");
         }
-
+     
     }
 }

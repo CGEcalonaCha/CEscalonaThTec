@@ -15,7 +15,7 @@ namespace Negocio
             {
                 using (Conexion.DB_CeciliaGabriela_EscalonaChavarriaEntities context = new Conexion.DB_CeciliaGabriela_EscalonaChavarriaEntities())
                 {
-                    int query = context.Insertar(Producto.nombre, Producto.precio, Producto.fabricante.codigo);
+                    int query = context.Insertar(Producto.Nombre, Producto.Precio, Producto.Fabricante.codigo);
                     if (query > 0)
                     {
                         result.Correcto = true;
@@ -49,11 +49,12 @@ namespace Negocio
                         foreach (var obj in query)
                         {
                             Modelo.Producto Productos = new Modelo.Producto();
-                            Productos.codigo = obj.codigo;
-                            Productos.nombre = obj.nombre;
-                            Productos.precio = obj.precio.Value;
-                            Productos.fabricante = new Modelo.Fabricante();
-                            Productos.fabricante.nombre = obj.fabricante;
+                            Productos.Codigo = obj.codigo;
+                            Productos.Nombre = obj.nombre;
+                            Productos.Precio = obj.precio.Value;
+                            Productos.Fabricante = new Modelo.Fabricante();
+                            Productos.Fabricante.nombre = obj.fabricante;
+
                             result.Objetos.Add(Productos);
                         }
                     }

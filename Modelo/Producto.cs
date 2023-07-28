@@ -13,14 +13,16 @@ namespace Modelo
 {
     public class Producto
     {
-        public int codigo { get; set; }
+        public int Codigo { get; set; }
+        public int Total { get; set; }
         //[Required(ErrorMessage = "Campo Obligatorio")]
         //[RegularExpression("(^[a-zA-Z ]*$)", ErrorMessage = "Solo se permiten letras Nombre")]
-        public string nombre { get; set; }
+        public string Nombre { get; set; }
         //[Required(ErrorMessage = "Campo Obligatorio")]
         //[RegularExpression("(^[0-9]+$)", ErrorMessage = "Solo se permiten números en numeros ")]
-        public decimal precio { get; set; }
-        public Fabricante fabricante { get; set; }
-        public List<object> productos { get; set; }
+        public decimal Precio { get; set; }
+        public decimal Suma  { get; set; }
+        public Fabricante Fabricante { get; set; }
+        public List<object> Productos { get; set; }
     }
 }
