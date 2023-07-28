@@ -1,0 +1,141 @@
+﻿@model Modelo.Producto
+@{
+    ViewData["Title"] = "Agregar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Formulario</h2>
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        @using (Html.BeginForm("Agregar", "Producto", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+
+            <div class="row">
+                <div class="col" style="display:none">
+                    @Html.LabelFor(model => model.codigo, new { @class = "visually-hidden" })
+
+                    @Html.TextBoxFor(model => model.codigo, new { @class = "visually-hidden form-control" })
+                </div>
+                <div class="col" style="display:none">
+                    <input type="text" id="txtLat" class="form-control" placeholder="latitude">
+                </div>
+                <div class="col" style="display:none">
+                    <input type="text" id="txtLng" class="form-control" placeholder="longitud">
+                </div>
+                <div class="col">
+                    @Html.LabelFor(model => model.nombre)
+
+                    @Html.TextBoxFor(model => model.nombre, new { @class = "form-control", @id = "txtnombre", @placeholder = "Ejemplo:Gabriela", @onkeypress = "SoloLetras(event, 'txtnombre', 'lblnombre')" })
+
+                    @Html.ValidationMessageFor(model => model.nombre, null, new { @class = "text-danger" })
+                    @*@Html.Label(null, "", new { @id = "lblnombre" })*@
+                </div>
+
+                <div class="col">
+                    @Html.LabelFor(model => model.precio)
+
+                    @Html.TextBoxFor(model => model.precio, new { @class = "form-control", @id = "txtprecio", @onkeypress = "SoloNumeros(event,'txtprecio', 'lblprecioo')" })
+
+                    @Html.ValidationMessageFor(model => model.precio)
+                    @*@Html.Label(null, "", new { @id = "lblprecio" })*@
+                </div>
+
+                <div class="col">
+                    @Html.LabelFor(model => model.fabricante)
+                    @Html.DropDownListFor(model => model.fabricante.codigo, new SelectList(Model.fabricante.fabricantes, "codigo", "nombre"), "Selecciona una opción", new { @class = "form-control" })
+
+                    @Html.ValidationMessageFor(model => model.fabricante.codigo)
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <input type="submit" value="Guardar" class="btn btn-success" />
+
+                    @Html.ActionLink("Regresar", "GetAll", "Producto", htmlAttributes: new { @class = "btn btn-danger" })
+                </div>
+
+            </div>
+
+
+        }
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+}
+<script type="text/javascript">
+
+    function SoloLetras(e, idTextBox, idLabel) {
+        var caracter = e.key;
+        if (!/^[a-zA-Z]/g.test(caracter)) {
+            $('#' + idLabel).text("Solo se aceptan letras");
+            $('#' + idLabel).css({ "color": "red" });
+            $('#' + idTextBox).css({ "border-color": "red", "background-color": "#f8d7da" });
+            return false;
+        }
+        else {
+            $('#' + idLabel).text("");
+            $('#' + idTextBox).css({ "border-color": "green", "background-color": "#D3F9C8" });
+            return true;
+        }
+    }
+</script>
+
+<script type="text/javascript">
+
+    function SoloNumeros(e, idTextBox, idLabel) {
+        var caracter = e.key;
+        if (!/^[0-9]+$/g.test(caracter)) {
+            $('#' + idLabel).text("Solo se aceptan numeros");
+            $('#' + idLabel).css({ "color": "red" });
+            $('#' + idTextBox).css({ "border-color": "red", "background-color": "#f8d7da" });
+            return false;
+        }
+        else {
+            $('#' + idLabel).text("");
+            $('#' + idTextBox).css({ "border-color": "green", "background-color": "#D3F9C8" });
+            return true;
+        }
+    }
+
+</script>
+<script type="text/javascript">
+
+    function sumar() {
+
+        var total = 0;
+
+        $(".monto").each(function () {
+
+            if (isNaN(parseFloat($(this).val()))) {
+
+                total += 0;
+
+            } else {
+
+                total += parseFloat($(this).val());
+
+            }
+
+        });
+
+        //alert(total);
+        document.getElementById('spTotal').innerHTML = total;
+
+    }
+
+</script>
+
+

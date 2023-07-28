@@ -1,0 +1,42 @@
+﻿@model Modelo.Producto
+@{
+    ViewBag.Title = "ListaProducto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ListaProducto</h2>
+<div style="float:right;">
+    @Html.ActionLink(" ", "Agregar", "Producto", htmlAttributes: new { @class = "btn btn-primary glyphicon glyphicon-plus-sign" })
+</div>
+
+<br />
+<table class="table table-bordered table-responsive" id="miTabla">
+    <thead>
+        <tr>
+            <td>Codigo</td>
+            <td></td>
+            <td>nombre</td>
+            <td>precio</td>
+            <td>Fabricante</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Modelo.Producto Producto in Model.productos)
+        {
+            <tr>
+                <td>@Producto.codigo</td>
+                <td>@Producto.nombre</td>
+                <td>@Producto.precio</td>
+                <td>@Producto.fabricante.nombre</td>
+
+            </tr>
+        }
+    <tr>
+        <td class="text-center">Total: </td>
+        <td id="text" class="text-center">0</td>
+        <input id="nums1" type="text" name="sum_num1" onchange="calularSuma()">
+    </tr>
+
+    </tbody>
+</table>
+

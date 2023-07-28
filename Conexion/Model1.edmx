@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DB_CeciliaGabriela_EscalonaChavarriaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="fabricante">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="producto">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" />
+          <Property Name="precio" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="codigo_fabricante" Type="int" />
+        </EntityType>
+        <Association Name="FK__producto__codigo__1273C1CD">
+          <End Role="fabricante" Type="Self.fabricante" Multiplicity="0..1" />
+          <End Role="producto" Type="Self.producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fabricante">
+              <PropertyRef Name="codigo" />
+            </Principal>
+            <Dependent Role="producto">
+              <PropertyRef Name="codigo_fabricante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Insertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="precio" Type="decimal" Mode="In" />
+          <Parameter Name="codigo_fabricante" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ListaFabricante" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ListaProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="DB_CeciliaGabriela_EscalonaChavarriaModelStoreContainer">
+          <EntitySet Name="fabricante" EntityType="Self.fabricante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="producto" EntityType="Self.producto" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__producto__codigo__1273C1CD" Association="Self.FK__producto__codigo__1273C1CD">
+            <End Role="fabricante" EntitySet="fabricante" />
+            <End Role="producto" EntitySet="producto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB_CeciliaGabriela_EscalonaChavarriaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="fabricante">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="productoes" Relationship="Self.FK__producto__codigo__1273C1CD" FromRole="fabricante" ToRole="producto" />
+        </EntityType>
+        <EntityType Name="producto">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="precio" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="codigo_fabricante" Type="Int32" />
+          <NavigationProperty Name="fabricante" Relationship="Self.FK__producto__codigo__1273C1CD" FromRole="producto" ToRole="fabricante" />
+        </EntityType>
+        <Association Name="FK__producto__codigo__1273C1CD">
+          <End Role="fabricante" Type="Self.fabricante" Multiplicity="0..1" />
+          <End Role="producto" Type="Self.producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fabricante">
+              <PropertyRef Name="codigo" />
+            </Principal>
+            <Dependent Role="producto">
+              <PropertyRef Name="codigo_fabricante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB_CeciliaGabriela_EscalonaChavarriaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="fabricantes" EntityType="Self.fabricante" />
+          <EntitySet Name="productoes" EntityType="Self.producto" />
+          <AssociationSet Name="FK__producto__codigo__1273C1CD" Association="Self.FK__producto__codigo__1273C1CD">
+            <End Role="fabricante" EntitySet="fabricantes" />
+            <End Role="producto" EntitySet="productoes" />
+          </AssociationSet>
+          <FunctionImport Name="Insertar">
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="precio" Mode="In" Type="Decimal" />
+            <Parameter Name="codigo_fabricante" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ListaProducto" ReturnType="Collection(DB_CeciliaGabriela_EscalonaChavarriaModel.ListaProducto_Result)" />
+          <FunctionImport Name="ListaFabricante" ReturnType="Collection(DB_CeciliaGabriela_EscalonaChavarriaModel.ListaFabricante_Result)" />
+        </EntityContainer>
+        <ComplexType Name="ListaProducto_Result">
+          <Property Type="Int32" Name="codigo" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="precio" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="String" Name="fabricante" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="ListaFabricante_Result">
+          <Property Type="Int32" Name="codigo" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="true" MaxLength="100" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB_CeciliaGabriela_EscalonaChavarriaModelStoreContainer" CdmEntityContainer="DB_CeciliaGabriela_EscalonaChavarriaEntities">
+          <EntitySetMapping Name="fabricantes">
+            <EntityTypeMapping TypeName="DB_CeciliaGabriela_EscalonaChavarriaModel.fabricante">
+              <MappingFragment StoreEntitySet="fabricante">
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productoes">
+            <EntityTypeMapping TypeName="DB_CeciliaGabriela_EscalonaChavarriaModel.producto">
+              <MappingFragment StoreEntitySet="producto">
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="codigo_fabricante" ColumnName="codigo_fabricante" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Insertar" FunctionName="DB_CeciliaGabriela_EscalonaChavarriaModel.Store.Insertar" />
+          <FunctionImportMapping FunctionImportName="ListaProducto" FunctionName="DB_CeciliaGabriela_EscalonaChavarriaModel.Store.ListaProducto">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_CeciliaGabriela_EscalonaChavarriaModel.ListaProducto_Result">
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="fabricante" ColumnName="fabricante" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ListaFabricante" FunctionName="DB_CeciliaGabriela_EscalonaChavarriaModel.Store.ListaFabricante">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_CeciliaGabriela_EscalonaChavarriaModel.ListaFabricante_Result">
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
